@@ -1,1 +1,27 @@
-<p>search-page works!</p>
+<h2 class="text-2xl font-bold mt-5">Buscar Gif</h2>
+<h3 class="text-sm text-gray-600 mb-2">Buscar Gifs por nombre, descripcion o tags</h3>
+
+<section class="flex flex-col gap-4">
+  <div class="container mx-auto space-x-4">
+    <form class="space-x-4">
+      <input
+        type="text"
+        placeholder="Buscar gifs"
+        class="border w-64 bg-white shadow-md rounded-md px-3 py-2"
+        (input)="save_inputSearch($event)"
+      />
+
+      <button
+        (click)="search_gift()"
+        type="button"
+        class="border w-64 bg-green-600 text-white font-semibold px-3 py-2 rounded-xl hover:bg-green-500 transition-colors duration-500 cursor-pointer"
+      >
+        Buscar GIF's
+      </button>
+    </form>
+  </div>
+</section>
+
+<section class="my-5">
+    <app-gif-list [gifs]="gifService.searchGifs()"></app-gif-list>
+</section>

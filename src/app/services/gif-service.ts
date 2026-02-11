@@ -11,6 +11,7 @@ import { GifMapper } from '../gifs/mappers/gif.mapper';
 export class GifService {
   private http = inject(HttpClient);
   public trendingGifs = signal<Gif[]>([]);
+  public searchGifs = signal<Gif[]>([]);
 
   constructor() {
     this.loadTrendingGifs();
@@ -26,7 +27,22 @@ export class GifService {
       })
       .subscribe((res) => {
         const gifs = GifMapper.mapGiphyItemsToGifArray(res.data);
-        this.trendingGifs.set(gifs)
+        this.trendingGifs.set(gifs);
+      });
+  }
+
+  public searchGif(value_to_search: string) {
+    this.http
+      .get<GifyResponse>(`${environment.url_gif_api}/gifs/search`, {
+        params: {
+          api_key: environment.api_key_gify,
+          q: value_to_search,
+          limit: 25,
+        },
+      })
+      .subscribe((res) => {
+        const gifs = GifMapper.mapGiphyItemsToGifArray(res.data);
+        this.searchGifs.set(gifs);
       });
   }
 }

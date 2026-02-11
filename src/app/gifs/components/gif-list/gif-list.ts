@@ -9,6 +9,5 @@ import { Gif } from '../../interfaces/gif.interface';
   styleUrl: './gif-list.css',
 })
 export class GifList {
-  public urls = input.required<string[]>();
   public gifs = input.required<Gif[]>();
 }
